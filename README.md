@@ -4,9 +4,9 @@ Bash script that updates a Tenable Security Center asset list with AWS IP addres
 
 **Author: mpb10**
 
-**July 24th, 2018**
+**September 11th, 2018**
 
-**v2.0.0**
+**v1.0.0**
 
 #
 
@@ -21,7 +21,7 @@ Bash script that updates a Tenable Security Center asset list with AWS IP addres
 
 **ATTENTION:** Never run unverified scripts or code in any production environment. Always be sure to thoroughly read through the contents of the files and understand them before using them in your environment.
 
-To set up this script, copy this script onto the AWS instance that hosts your installation of Tenable Security Center. A good place to put the script would be a directory named 'scripts' in the root install directory of Security Center. Modify the script's permissions so that it is executable. Then, the script can be ran as a one-off using the script options, or the script's default variables can be modified so that a simple cron job can be set up.
+To set this script up, copy the `update_asset.sh` file onto the AWS instance that hosts your installation of Tenable Security Center. A good place to put the script would be in a directory named 'scripts' in the root install directory of Security Center. Make sure to change the script's permissions so that it is executable. Then, the script can be ran as a one-off command using the script options, or the script's default variables can be modified so that a cron job can be set up.
 
 An example cron entry would be:
 	59 * * * * /opt/sc/scripts/update_asset.sh
@@ -36,6 +36,8 @@ The script logs to the syslog using the 'logger' command to help in troubleshoot
 
 To maintain security, the REST API login token is created every time the script is ran and subsequently deleted before the script exits. Also, it is a good idea to utilize AWS KMS to encrypt your Security Center password in a file instead of having the password be passed to the script in plaintext every time it is ran. Details can be found [here](https://aws.amazon.com/blogs/security/how-to-help-protect-sensitive-data-with-aws-kms/) and [here](https://aws.amazon.com/blogs/security/how-to-encrypt-and-decrypt-your-data-with-the-aws-encryption-cli/).
 
+#
+
 **Using the Script Options:**
 If the default variables in the script are not modified, then those variables must be provided to the script as options. The following are required options:
 
@@ -46,11 +48,14 @@ If the default variables in the script are not modified, then those variables mu
 	-l (Security Center address)
 
 Example: `/opt/sc/scripts/update_asset.sh -u svc_sc -p P@ssw0rd -c /opt/sc/scripts/sc_cookiefile -i 123 -l securitycenter.local`
+
 Example: `/opt/sc/scripts/update_asset.sh -u svc_sc -P /opt/sc/scripts/sc_credfile -c /opt/sc/scripts/sc_cookiefile -I 'Running AWS Addresses' -l securitycenter.local`
 
 The following option is not required:
 
 	-k (Don't have curl verify the SSL certificates (NOT RECOMMENDED))
+
+#
 
 **Modifying the Script Variables:**
 Instead of passing options to the script, default values can be saved in the script itself. This is useful when the script is to be used with cron, Chef, or some other form of automation. Simply set each variable to it's corresponding option's value. These are the variables' corresponding options:
