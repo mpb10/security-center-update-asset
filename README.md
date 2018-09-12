@@ -26,7 +26,7 @@ To set this script up, copy the `update_asset.sh` file onto the AWS instance tha
 An example cron entry would be:
 	59 * * * * /opt/sc/scripts/update_asset.sh
 
-Make sure that when you run the script you either provide the necessary options or modify the default variables in the script.
+Make sure that when the script is ran, you either provide the necessary options or modify the default variables in the script.
 
 # USAGE
 
@@ -39,7 +39,7 @@ To maintain security, the REST API login token is created every time the script 
 #
 
 **Using the Script Options:**
-If the default variables in the script are not modified, then those variables must be provided to the script as options. The following are required options:
+If the default variables in the script are not modified, then those variables must be provided to the script as options. The following options are required:
 
 	-u (Security Center username)
 	-p (Security Center password) OR -P (Credential file to have AWS KMS decrypt)
